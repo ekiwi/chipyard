@@ -6,6 +6,7 @@ import scala.collection.mutable.{LinkedHashMap}
 
 import chisel3._
 import chisel3.experimental.{IO}
+import chisel3.experimental.{ChiselAnnotation, annotate}
 
 import freechips.rocketchip.prci._
 import freechips.rocketchip.subsystem.{BaseSubsystem, SubsystemDriveAsyncClockGroupsKey}
@@ -274,4 +275,8 @@ class FireSim(implicit val p: Parameters) extends RawModule with HasHarnessSigna
   buildtopClock := p(ClockBridgeInstantiatorKey).requestClock("buildtop_reference_clock", getRefClockFreq * (1000 * 1000))
 
   p(ClockBridgeInstantiatorKey).instantiateFireSimClockBridge
+
+  annotate(new ChiselAnnotation {
+      def toFirrtl = midas.coverage.CoverageScanChainOptions(counterWidth = p(CoverageCounterWidthKey))
+  })
 }
