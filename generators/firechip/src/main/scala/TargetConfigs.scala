@@ -24,7 +24,7 @@ import testchipip.WithRingSystemBus
 import firesim.bridges._
 import firesim.configs._
 
-case object CoverageCounterWidthKey extends Field[Int](16)
+case object CoverageCounterWidthKey extends Field[Int](0)
 
 class WithBootROM extends Config((site, here, up) => {
   case BootROMLocated(x) => {
